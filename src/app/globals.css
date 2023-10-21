@@ -25,3 +25,11 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.system-message {
+  text-align: left;
+}
+
+.user-message {
+  text-align: right;
+}

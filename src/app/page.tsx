@@ -2,17 +2,21 @@
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
 
+export enum MessageRole {
+  USER = "user",
+  ASSISTANT = "assistant",
+  SYSTEM = "system",
+  FUNCTION = "function",
+}
 
 export default function Home() {
-  const [userInput, setUserInput] = useState(""); // State to hold user input
-  const [responseText, setResponseText] = useState(""); // State to hold the response text
+  const [userInput, setUserInput] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
 
   const openai = new OpenAI({
-    apiKey:  process.env.OPENAI_API_KEY,
+    apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
-
-  let messages: any = [];
 
   // Function to handle user input
   const handleUserInput = (event: any) => {
@@ -22,33 +26,41 @@ export default function Home() {
   // Function to fetch OpenAI response
   const fetchOpenAIResponse = async () => {
     try {
-      messages.push({
-        role: "system",
-        content: "You",
-      });
-      messages.push({
-        role: "user",
+      let inputMessage = {
+        role: MessageRole.USER,
         content: userInput,
-      });
+      };
+      setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
 
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: messages,
+        messages: [
+          ...chatHistory, // Include the previous chat history
+          {
+            role: "user",
+            content: userInput,
+          },
+        ],
         temperature: 0.8,
         max_tokens: 256,
       });
 
-      console.log('in')
-      // Set the response text in the component state
-      let responseMessage = response.choices[0].message.content
+      let responseMessage = response.choices[0].message.content;
       if (responseMessage != null) {
-        setResponseText(responseMessage)
+        const systemMessage = {
+          role: MessageRole.SYSTEM,
+          content: responseMessage,
+        };
+        // Add OpenAI's response to the chat history
+        setChatHistory((prevHistory) => [...prevHistory, systemMessage]);
       }
     } catch (error) {
       console.error("Error fetching OpenAI response:", error);
     }
   };
+
+
 
   return (
     <main className="h-screen">
@@ -71,15 +83,27 @@ export default function Home() {
         </table>
         <div className="w-3/5">
           <div>
-            <h1>OpenAI Response:</h1>
-            <input
-              type="text"
-              placeholder="Enter your text"
-              value={userInput}
-              onChange={handleUserInput}
-            />
-            <button onClick={fetchOpenAIResponse}>Submit</button>
-            <p>{responseText}</p>
+            <div className="justify-center">
+              <h2>Chat History:</h2>
+              <ul>
+                {chatHistory.map((message, index) => (
+                  <li key={index} className={message.role}>
+                    {message.content}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <input
+                type="text"
+                placeholder="Enter your text"
+                value={userInput}
+                onChange={handleUserInput}
+              />
+              <button onClick={fetchOpenAIResponse}>Submit</button>
+            </div>
+
           </div>
         </div>
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">

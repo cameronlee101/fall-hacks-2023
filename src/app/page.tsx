@@ -40,12 +40,18 @@ export default function Home() {
     dangerouslyAllowBrowser: true,
   });
 
-  // Functions related to finding and handling inventory and player stats
+  // Functions related to finding and removing inventory and player stats
   function findInventoryItem(name: string): InventoryItem | undefined {
     return inventory.find((item) => item.name === name);
   }
   function findPlayerStat(name: string): InventoryItem | undefined {
     return stats.find((item) => item.name === name);
+  }
+  function removeInventoryItem(name: string): void {
+    const indexToRemove = inventory.findIndex((item) => item.name === name);
+    if (indexToRemove !== -1) {
+      inventory.splice(indexToRemove, 1);
+    }
   }
 
   // Function to handle user input

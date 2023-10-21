@@ -65,14 +65,15 @@ export default function Home() {
 
 
   return (
-    <main className="h-screen">
-      <div className="font-mono mb-28">
-        <h1 className="m-4 object-contain text-3xl flex justify-center">Fall Hacks 2023 Text-based Adventure Game</h1>
+    <main className="flex flex-col h-screen">
+      <div className="font-mono mb-12">
+        <h1 className="m-2 object-contain text-2xl flex justify-center">Fall Hacks 2023 Text-based Adventure Game</h1>
       </div>
-      <div className="font-mono flex flex-row">
+
+      <div className="font-mono flex flex-row flex-1">
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">
           <thead>
-            <th className="border-2 border-black">Inventory</th>
+            <tr className="border-2 border-black">Inventory</tr>
           </thead>
           <tbody>
             {inventory.map((item, index) => (
@@ -81,40 +82,38 @@ export default function Home() {
           </tbody>
         </table>
 
-        <div className="w-3/5">
-
+        <div className="w-3/5 flex flex-col">
           <div className="justify-center">
             <h2>Chat History:</h2>
-
-            <ul>
-              {chatHistory.map((message, index) => (
-                <li
-                  key={index}
-                  className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
-                >
-                  {message.content}
-                </li>
-              ))}
-            </ul>
-
-
-            <div>
-              <input
-                type="text"
-                id="userInput"
-                placeholder="Enter your text"
-                value={userInput}
-                onChange={handleUserInput}
-              />
-              <button onClick={fetchOpenAIResponse}>Submit</button>
+            <div className="chat-history-container overflow-auto h-96">
+              <ul>
+                {chatHistory.map((message, index) => (
+                  <li
+                    key={index}
+                    className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
+                  >
+                    {message.content}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
+          <div className="flex items-center justify-center font-mono mb-10">
+            <input
+              type="text"
+              id="userInput"
+              placeholder="Enter your text"
+              value={userInput}
+              onChange={handleUserInput}
+            />
+            <button onClick={fetchOpenAIResponse}>Submit</button>
+          </div>
         </div>
 
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">
           <thead>
-            <th className="border-2 border-black">Stats</th>
+            <tr className="border-2 border-black">Stats</tr>
           </thead>
           <tbody>
             {stats.map((stat, index) => (
@@ -125,4 +124,5 @@ export default function Home() {
       </div>
     </main>
   );
+
 }

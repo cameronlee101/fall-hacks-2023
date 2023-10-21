@@ -28,8 +28,10 @@ body {
 
 .system-message {
   text-align: left;
+  margin-bottom: 25;
 }
 
 .user-message {
   text-align: right;
+  margin-bottom: 25;
 }

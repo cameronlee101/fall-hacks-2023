@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
+import {dragonPrompts} from './prompts';
 
 export enum MessageRole {
   USER = "user",
@@ -62,7 +63,14 @@ export default function Home() {
     }
   };
 
+  // Function for Scenario 1
+  const dragonScenario = (selection: number) => {
+    setUserInput(dragonPrompts[selection])
 
+    console.log(userInput)
+
+    fetchOpenAIResponse()
+  };
 
   return (
     <main className="h-screen">
@@ -102,6 +110,19 @@ export default function Home() {
                 onChange={handleUserInput}
               />
               <button onClick={fetchOpenAIResponse}>Submit</button>
+            </div>
+
+            <div>
+              {/* Game start text */}
+              <p>You are a bored office worker looking to turn over a new leaf. One day, thinking aloud, you say 
+                “I wish I could start a new adventure.” Suddenly, your wish comes true, and you are transported to a new world.</p>
+              <p>Your adventure begins in a village under attack by a dragon...</p>
+              
+              <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
+                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "white", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
+                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "white", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
+                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "white", margin: "20px" }}>Flee the scene.</button>
+              </div>   
             </div>
           </div>
         </div>

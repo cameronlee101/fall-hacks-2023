@@ -35,6 +35,8 @@ export default function Home() {
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -63,6 +65,7 @@ export default function Home() {
   // Function to fetch OpenAI response
   const fetchOpenAIResponse = async () => {
     try {
+      setIsLoading(true);
       let inputMessage = {
         role: MessageRole.USER,
         content: userInput,
@@ -93,6 +96,7 @@ export default function Home() {
         // Add OpenAI's response to the chat history
         setChatHistory((prevHistory) => [...prevHistory, systemMessage]);
       }
+      setIsLoading(false)
     } catch (error) {
       console.error("Error fetching OpenAI response:", error);
     }
@@ -122,10 +126,10 @@ export default function Home() {
           </tbody>
         </table>
 
-        <div className="w-3/5 flex flex-col">
+        <div className="w-3/5 flex flex-col mr-2 ml-2 p-2">
           <div className="justify-center">
             <h2>Chat History:</h2>
-            <div className="chat-history-container overflow-auto h-96">
+            <div className="chat-history-container overflow-auto" style={{ height: "75vh" }}>
               <ul>
                 {chatHistory.map((message, index) => (
                   <li
@@ -135,6 +139,7 @@ export default function Home() {
                     {message.content}
                   </li>
                 ))}
+                {isLoading && <p>Typing...</p>}
               </ul>
             </div>
           </div>

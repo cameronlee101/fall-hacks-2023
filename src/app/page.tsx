@@ -10,10 +10,30 @@ export enum MessageRole {
 }
 
 export default function Home() {
+  class inventoryItem {
+    name: string;
+    quantity: number;
+
+    constructor(name: string, quantity: number) {
+      this.name = name;
+      this.quantity = quantity
+    }
+  }
+
+  class playerStat {
+    name: string;
+    quantity: number;
+
+    constructor(name: string, quantity: number) {
+      this.name = name;
+      this.quantity = quantity
+    }
+  }
+
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
-  const [inventory, setInventory] = useState(["item1", "item2", "item3"]); // Initial inventory array
-  const [stats, setStats] = useState(["stat1", "stat2", "stat3"]); // Initial stats array
+  const [inventory, setInventory] = useState([new inventoryItem("Gold", 5)]); // Initial inventory array
+  const [stats, setStats] = useState([new playerStat("Health", 5), new playerStat("Strength", 3)]); // Initial stats array
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -77,7 +97,7 @@ export default function Home() {
           </thead>
           <tbody>
             {inventory.map((item, index) => (
-              <tr key={index}>{item}</tr>
+              <tr key={index}>{item.quantity} {item.name}</tr>
             ))}
           </tbody>
         </table>
@@ -117,7 +137,7 @@ export default function Home() {
           </thead>
           <tbody>
             {stats.map((stat, index) => (
-              <tr key={index}>{stat}</tr>
+              <tr key={index}>{stat.name}: {stat.quantity}</tr>
             ))}
           </tbody>
         </table>

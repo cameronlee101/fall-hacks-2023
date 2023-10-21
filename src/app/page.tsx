@@ -10,7 +10,7 @@ export enum MessageRole {
 }
 
 export default function Home() {
-  class inventoryItem {
+  class InventoryItem {
     name: string;
     quantity: number;
 
@@ -20,7 +20,7 @@ export default function Home() {
     }
   }
 
-  class playerStat {
+  class PlayerStat {
     name: string;
     quantity: number;
 
@@ -41,6 +41,20 @@ export default function Home() {
     apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
+
+  // Functions related to finding and removing inventory and player stats
+  function findInventoryItem(name: string): InventoryItem | undefined {
+    return inventory.find((item) => item.name === name);
+  }
+  function findPlayerStat(name: string): InventoryItem | undefined {
+    return stats.find((item) => item.name === name);
+  }
+  function removeInventoryItem(name: string): void {
+    const indexToRemove = inventory.findIndex((item) => item.name === name);
+    if (indexToRemove !== -1) {
+      inventory.splice(indexToRemove, 1);
+    }
+  }
 
   // Function to handle user input
   const handleUserInput = (event: any) => {

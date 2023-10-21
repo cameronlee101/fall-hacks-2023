@@ -101,9 +101,6 @@ export default function Home() {
   // Function for Scenario 1
   const dragonScenario = (selection: number) => {
     setUserInput(dragonPrompts[selection])
-
-    console.log(userInput)
-
     fetchOpenAIResponse()
   };
 

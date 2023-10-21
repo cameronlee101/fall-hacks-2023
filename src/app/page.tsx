@@ -53,6 +53,7 @@ export default function Home() {
         content: userInput,
       };
       setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
+      setUserInput("");
 
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
@@ -83,7 +84,6 @@ export default function Home() {
   };
 
 
-
   return (
     <main className="h-screen">
       <div className="font-mono mb-28">
@@ -102,21 +102,26 @@ export default function Home() {
         </table>
 
         <div className="w-3/5">
-          <div>
-            <div className="justify-center">
-              <h2>Chat History:</h2>
-              <ul>
-                {chatHistory.map((message, index) => (
-                  <li key={index} className={message.role}>
-                    {message.content}
-                  </li>
-                ))}
-              </ul>
-            </div>
+
+          <div className="justify-center">
+            <h2>Chat History:</h2>
+
+            <ul>
+              {chatHistory.map((message, index) => (
+                <li
+                  key={index}
+                  className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
+                >
+                  {message.content}
+                </li>
+              ))}
+            </ul>
+
 
             <div>
               <input
                 type="text"
+                id="userInput"
                 placeholder="Enter your text"
                 value={userInput}
                 onChange={handleUserInput}
@@ -124,6 +129,7 @@ export default function Home() {
               <button onClick={fetchOpenAIResponse}>Submit</button>
             </div>
           </div>
+
         </div>
 
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">

@@ -70,20 +70,11 @@ export default function Home() {
         content: userInput,
       };
       setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
-      setUserInput("");
-
+      
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [
-          ...chatHistory, // Include the previous chat history
-          {
-            role: "user",
-            content: userInput,
-          },
-        ],
-        temperature: 0.8,
-        max_tokens: 256,
+        messages: chatHistory, // Include the previous chat history
       });
 
       let responseMessage = response.choices[0].message.content;
@@ -100,6 +91,10 @@ export default function Home() {
       console.error("Error fetching OpenAI response:", error);
     }
   };
+
+  useEffect(() => {
+    
+  }, []);
 
 
   return (

@@ -55,21 +55,28 @@ export default function Home() {
         <h1 className="m-4 object-contain text-3xl flex justify-center">Fall Hacks 2023 Text-based Adventure Game</h1>
       </div>
       <div className="font-mono flex flex-row">
-        <table className="w-1/5 text-center border-2 border-black m-8">
-          <thead><th>Held items</th></thead>
+        <table className="w-1/5 text-center border-2 border-black m-8 h-1">
+          <thead><th className="border-2 border-black">Inventory</th></thead>
           <tbody>
-            <tr>item1</tr>
-            <tr>item2</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
+            <tr>item</tr>
           </tbody>
         </table>
         <div className="w-3/5">
           <p className="text-center">game here</p>
         </div>
-        <table className="w-1/5 text-center border-2 border-black m-8">
-          <thead><th>Stats</th></thead>
+        <table className="w-1/5 text-center border-2 border-black m-8 h-1">
+          <thead><th className="border-2 border-black">Stats</th></thead>
           <tbody>
-            <tr>stat1</tr>
-            <tr>stat2</tr>
+            <tr>stat</tr>
+            <tr>stat</tr>
+            <tr>stat</tr>
           </tbody>
         </table>
       </div>

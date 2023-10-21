@@ -12,6 +12,8 @@ export enum MessageRole {
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
+  const [inventory, setInventory] = useState(["item1", "item2", "item3"]); // Initial inventory array
+  const [stats, setStats] = useState(["stat1", "stat2", "stat3"]); // Initial stats array
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -69,18 +71,16 @@ export default function Home() {
       </div>
       <div className="font-mono flex flex-row">
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">
-          <thead><th className="border-2 border-black">Inventory</th></thead>
+          <thead>
+            <th className="border-2 border-black">Inventory</th>
+          </thead>
           <tbody>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
-            <tr>item</tr>
+            {inventory.map((item, index) => (
+              <tr key={index}>{item}</tr>
+            ))}
           </tbody>
         </table>
+
         <div className="w-3/5">
 
           <div className="justify-center">
@@ -111,12 +111,15 @@ export default function Home() {
           </div>
 
         </div>
+
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">
-          <thead><th className="border-2 border-black">Stats</th></thead>
+          <thead>
+            <th className="border-2 border-black">Stats</th>
+          </thead>
           <tbody>
-            <tr>stat</tr>
-            <tr>stat</tr>
-            <tr>stat</tr>
+            {stats.map((stat, index) => (
+              <tr key={index}>{stat}</tr>
+            ))}
           </tbody>
         </table>
       </div>

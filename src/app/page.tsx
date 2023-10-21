@@ -69,7 +69,17 @@ export default function Home() {
           </tbody>
         </table>
         <div className="w-3/5">
-          <p className="text-center">game here</p>
+          <div>
+            <h1>OpenAI Response:</h1>
+            <input
+              type="text"
+              placeholder="Enter your text"
+              value={userInput}
+              onChange={handleUserInput}
+            />
+            <button onClick={fetchOpenAIResponse}>Submit</button>
+            <p>{responseText}</p>
+          </div>
         </div>
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">
           <thead><th className="border-2 border-black">Stats</th></thead>

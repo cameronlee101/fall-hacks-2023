@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
+import {initialPrompt} from './prompts';
 import {dragonPrompts} from './prompts';
 
 export enum MessageRole {
@@ -72,6 +73,8 @@ export default function Home() {
       };
       setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
       
+      console.log(userInput)
+
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -102,7 +105,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    
+    setUserInput(initialPrompt)
+    fetchOpenAIResponse()
   }, []);
 
   // Function for Scenario 1
@@ -166,8 +170,6 @@ export default function Home() {
             />
             <button onClick={fetchOpenAIResponse}>Submit</button>
           </div>
-
-          
         </div>
 
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">

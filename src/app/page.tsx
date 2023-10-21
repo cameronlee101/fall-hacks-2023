@@ -148,15 +148,6 @@ export default function Home() {
               onChange={handleUserInput}
             />
             <button onClick={fetchOpenAIResponse}>Submit</button>
-            <div>
-              <input
-                type="text"
-                placeholder="Enter your text"
-                value={userInput}
-                onChange={handleUserInput}
-              />
-              <button onClick={fetchOpenAIResponse}>Submit</button>
-            </div>
 
             <div>
               {/* Game start text */}
@@ -165,9 +156,9 @@ export default function Home() {
               <p>Your adventure begins in a village under attack by a dragon...</p>
               
               <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "white", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
-                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "white", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
-                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "white", margin: "20px" }}>Flee the scene.</button>
+                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
+                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
+                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
               </div>   
             </div>
           </div>

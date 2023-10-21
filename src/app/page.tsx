@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
+import {initialPrompt} from './prompts';
+import {dragonPrompts} from './prompts';
 
 export enum MessageRole {
   USER = "user",
@@ -92,6 +94,8 @@ export default function Home() {
       };
       setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
       
+      console.log(userInput)
+
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -122,9 +126,15 @@ export default function Home() {
   };
 
   useEffect(() => {
-    
+    setUserInput(initialPrompt)
+    fetchOpenAIResponse()
   }, []);
 
+  // Function for Scenario 1
+  const dragonScenario = (selection: number) => {
+    setUserInput(dragonPrompts[selection])
+    fetchOpenAIResponse()
+  };
 
   return (
     <main className="flex flex-col h-screen">
@@ -165,8 +175,17 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-          </div>
 
+            <div>
+              {/* First scenario */}   
+              <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
+                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
+                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
+                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
+              </div>   
+            </div>
+          </div>
+          
           <div className="flex items-center justify-center font-mono mb-10">
             <input
               type="text"

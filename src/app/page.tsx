@@ -35,12 +35,33 @@ export default function Home() {
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState('Typing.');
 
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
+
+  // Function to start the typing animation
+  const startTypingAnimation = () => {
+    let dots = 2;
+    setIsLoading(true);
+
+    const intervalId = setInterval(() => {
+      setLoadingText('Typing' + '.'.repeat(dots));
+      dots = (dots % 3) + 1;
+    }, 500);
+
+    return intervalId;
+  };
+
+  // Function to stop the typing animation
+  const stopTypingAnimation = (intervalId: NodeJS.Timeout) => {
+    clearInterval(intervalId);
+    setIsLoading(false);
+    setLoadingText('Typing.');
+  };
 
   // Functions related to finding and removing inventory and player stats
   function findInventoryItem(name: string): InventoryItem | undefined {
@@ -64,7 +85,7 @@ export default function Home() {
   // Function to fetch OpenAI response
   const fetchOpenAIResponse = async () => {
     try {
-      setIsLoading(true);
+      const intervalID = startTypingAnimation();
       let inputMessage = {
         role: MessageRole.USER,
         content: userInput,
@@ -95,7 +116,7 @@ export default function Home() {
         // Add OpenAI's response to the chat history
         setChatHistory((prevHistory) => [...prevHistory, systemMessage]);
       }
-      setIsLoading(false)
+      stopTypingAnimation(intervalID);
     } catch (error) {
       console.error("Error fetching OpenAI response:", error);
     }
@@ -126,6 +147,7 @@ export default function Home() {
             <div className="chat-history-container overflow-auto" style={{ height: "75vh" }}>
               <ul>
                 {chatHistory.map((message, index) => (
+                  
                   <li
                     key={index}
                     className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
@@ -133,7 +155,7 @@ export default function Home() {
                     {message.content}
                   </li>
                 ))}
-                {isLoading && <p>Typing...</p>}
+                {isLoading && loadingText}
               </ul>
             </div>
           </div>

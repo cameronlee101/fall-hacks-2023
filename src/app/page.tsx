@@ -32,8 +32,8 @@ export default function Home() {
 
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
-  const [inventory, setInventory] = useState([new inventoryItem("Gold", 5)]); // Initial inventory array
-  const [stats, setStats] = useState([new playerStat("Health", 5), new playerStat("Strength", 3)]); // Initial stats array
+  const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
+  const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
 
 

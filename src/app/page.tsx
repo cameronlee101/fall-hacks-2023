@@ -91,8 +91,7 @@ export default function Home() {
         content: userInput,
       };
       setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
-      setUserInput("");
-
+      
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
@@ -121,6 +120,10 @@ export default function Home() {
       console.error("Error fetching OpenAI response:", error);
     }
   };
+
+  useEffect(() => {
+    
+  }, []);
 
 
   return (

@@ -10,7 +10,7 @@ export enum MessageRole {
 }
 
 export default function Home() {
-  class inventoryItem {
+  class InventoryItem {
     name: string;
     quantity: number;
 
@@ -20,7 +20,7 @@ export default function Home() {
     }
   }
 
-  class playerStat {
+  class PlayerStat {
     name: string;
     quantity: number;
 
@@ -32,13 +32,21 @@ export default function Home() {
 
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
-  const [inventory, setInventory] = useState([new inventoryItem("Gold", 5)]); // Initial inventory array
-  const [stats, setStats] = useState([new playerStat("Health", 5), new playerStat("Strength", 3)]); // Initial stats array
+  const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
+  const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
+
+  // Functions related to finding and handling inventory and player stats
+  function findInventoryItem(name: string): InventoryItem | undefined {
+    return inventory.find((item) => item.name === name);
+  }
+  function findPlayerStat(name: string): InventoryItem | undefined {
+    return stats.find((item) => item.name === name);
+  }
 
   // Function to handle user input
   const handleUserInput = (event: any) => {

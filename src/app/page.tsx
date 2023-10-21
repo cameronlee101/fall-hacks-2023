@@ -149,12 +149,16 @@ export default function Home() {
             <h2>Chat History:</h2>
             <div className="chat-history-container overflow-auto" style={{ height: "75vh" }}>
               <ul>
-                {chatHistory.map((message, index) => (
-                  
+                {chatHistory.map((message, index) => (                  
                   <li
                     key={index}
                     className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
                   >
+                    <img
+                      src={message.role === 'system' ? '../../public/icons/robot.png' : '../../public/icons/adventurer.png'}
+                      alt="User or System Image"
+                      style={{ borderRadius: '50%', width: '50px', height: '50px' }}
+                    />
                     {message.content}
                   </li>
                 ))}

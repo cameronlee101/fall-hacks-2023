@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
 
+
 export default function Home() {
   const [userInput, setUserInput] = useState(""); // State to hold user input
   const [responseText, setResponseText] = useState(""); // State to hold the response text
 
-  const openAIBearerToken = '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';
   const openai = new OpenAI({
-    apiKey: openAIBearerToken,
+    apiKey:  process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
   });
 
@@ -39,6 +39,7 @@ export default function Home() {
         max_tokens: 256,
       });
 
+      console.log('in')
       // Set the response text in the component state
       let responseMessage = response.choices[0].message.content
       if (responseMessage != null) {

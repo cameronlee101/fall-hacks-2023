@@ -142,8 +142,17 @@ export default function Home() {
                 {isLoading && <p>Typing...</p>}
               </ul>
             </div>
-          </div>
 
+            <div>
+              {/* First scenario */}   
+              <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
+                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
+                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
+                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
+              </div>   
+            </div>
+          </div>
+          
           <div className="flex items-center justify-center font-mono mb-10">
             <input
               type="text"
@@ -153,20 +162,9 @@ export default function Home() {
               onChange={handleUserInput}
             />
             <button onClick={fetchOpenAIResponse}>Submit</button>
-
-            <div>
-              {/* Game start text */}
-              <p>You are a bored office worker looking to turn over a new leaf. One day, thinking aloud, you say 
-                “I wish I could start a new adventure.” Suddenly, your wish comes true, and you are transported to a new world.</p>
-              <p>Your adventure begins in a village under attack by a dragon...</p>
-              
-              <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
-                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
-                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
-              </div>   
-            </div>
           </div>
+
+          
         </div>
 
         <table className="w-1/5 text-center border-2 border-black m-8 h-1">

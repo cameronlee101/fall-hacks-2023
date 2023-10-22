@@ -68,7 +68,7 @@ export const allPrompts =
     }],
 
     [{
-        gpt: "Describe me, after arriving at the Demon King’s castle after a long journey, epically defeating an army of Demon King guards before arriving at the Demon King’s quarters (100 words or less, 2nd person)",
+        gpt: "Describe me, after arriving at the Demon King’s castle after a long journey, epically defeating an army of Demon King guards before arriving at the Demon King’s quarters (but not fighting the Demon King yet) (100 words or less, 2nd person)",
         user: "Storm the Demon King's castle",
         option: 0
     }],
@@ -97,6 +97,15 @@ export const deathPrompt =
     {
         gpt: "Describe me vivdly dying in battle despite my best efforts (100 words or less, 2nd person)",
         user: "",
+        option: 0
+    }
+]
+
+export const victoryPrompt = 
+[
+    {
+        gpt: "Describe me going back to the town and celebrating my victory over the Demon Lord with the locals (100 words or less, 2nd person)",
+        user: "Time to celebrate",
         option: 0
     }
 ]

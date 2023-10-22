@@ -39,7 +39,7 @@ Robot icon from [https://pngimg.com/image/45356](https://pngimg.com/image/45356)
 
 React library
 
-OpenAI API
+OpenAI API - Used for story narration
 
 ## Github
 

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
+import { initialPrompt } from "./prompts";
 import {dragonPrompts} from './prompts';
 import Image from 'next/image';
 

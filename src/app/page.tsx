@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
-import { initialPrompt } from "./prompts";
-import {dragonPrompts} from './prompts';
+import { allPrompts } from "./prompts";
 import Image from 'next/image';
 
 export enum MessageRole {
@@ -126,9 +125,9 @@ export default function Home() {
       <div>
         {/* First scenario */}
         <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
-          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to soothe the dragon by offering all your gold.</button>
-          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
+          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>dragonPrompts.user</button>
+          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>dragonPrompts.user</button>
+          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>dragonPrompts.user</button>
         </div>
       </div>
     );
@@ -136,7 +135,7 @@ export default function Home() {
 
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
-    getOpenAIResponse(dragonPrompts[selection])
+    getOpenAIResponse(allPrompts[1][selection])
   };
 
   return (
@@ -182,7 +181,7 @@ export default function Home() {
               </ul>
             </div>
 
-            <button onClick={() => getOpenAIResponse(initialPrompt)}>Start Game</button>
+            <button onClick={() => getOpenAIResponse(allPrompts[0][0])}>Start Game</button>
 
             {dragonScenario()}
           </div>

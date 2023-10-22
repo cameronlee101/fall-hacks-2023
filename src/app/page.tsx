@@ -141,15 +141,24 @@ export default function Home() {
 
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
+
+    const healthStat = findPlayerStat("Health");
+    const strengthStat = findPlayerStat("Strength");
+
+  
+    
     if (allPrompts[stage][selection].health !== undefined) {
-      const healthStat = findPlayerStat("Health");
       if (healthStat) {
         healthStat.quantity--;
+
+        if(healthStat.quantity == 0){
+          setStage(allPrompts.length)
+          // death condition
+        }
       }
     }
 
     if (allPrompts[stage][selection].strength !== undefined) {
-      const strengthStat = findPlayerStat("Strength");
       if (strengthStat) {
         strengthStat.quantity++;
       }

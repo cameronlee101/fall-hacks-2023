@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
-import {initialPrompt} from './prompts';
 import {dragonPrompts} from './prompts';
 import Image from 'next/image';
 
@@ -32,8 +31,7 @@ export default function Home() {
       this.quantity = quantity
     }
   }
-
-  const [userInput, setUserInput] = useState("");
+  
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
@@ -80,33 +78,23 @@ export default function Home() {
     }
   }
 
-  // Function to handle user input
-  const handleUserInput = (event: any) => {
-    setUserInput(event.target.value);
-  };
+  const getOpenAIResponse = async (userInput: string) => {
+    let inputMessage = {
+      role: MessageRole.USER,
+      content: userInput,
+    };
+    await setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
+    await fetchOpenAIResponse(inputMessage);
+  }
 
   // Function to fetch OpenAI response
-  const fetchOpenAIResponse = async () => {
+  const fetchOpenAIResponse = async (userMessage: any) => {
     try {
       const intervalID = startTypingAnimation();
-      let inputMessage = {
-        role: MessageRole.USER,
-        content: userInput,
-      };
-      setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
-      
-      console.log(userInput)
-
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [
-          ...chatHistory, // Include the previous chat history
-          {
-            role: "user",
-            content: userInput,
-          },
-        ],
+        messages: [userMessage],
         temperature: 0.8,
         max_tokens: 256,
       });
@@ -117,8 +105,8 @@ export default function Home() {
           role: MessageRole.SYSTEM,
           content: responseMessage,
         };
-        // Add OpenAI's response to the chat history
-        setChatHistory((prevHistory) => [...prevHistory, systemMessage]);
+
+        await setChatHistory((prevHistory) => [...prevHistory, systemMessage]);
       }
       stopTypingAnimation(intervalID);
     } catch (error) {
@@ -126,15 +114,9 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    setUserInput(initialPrompt)
-    fetchOpenAIResponse()
-  }, []);
-
   // Function for Scenario 1
   const dragonScenario = (selection: number) => {
-    setUserInput(dragonPrompts[selection])
-    fetchOpenAIResponse()
+    getOpenAIResponse(dragonPrompts[selection])
   };
 
   return (
@@ -160,7 +142,7 @@ export default function Home() {
             <h2>Chat History:</h2>
             <div className="chat-history-container overflow-auto" style={{ height: "75vh" }}>
               <ul>
-                {chatHistory.map((message, index) => (                  
+                {chatHistory.map((message, index) => (
                   <li
                     key={index}
                     className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
@@ -181,24 +163,13 @@ export default function Home() {
             </div>
 
             <div>
-              {/* First scenario */}   
+              {/* First scenario */}
               <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
                 <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
                 <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
                 <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
-              </div>   
+              </div>
             </div>
-          </div>
-          
-          <div className="flex items-center justify-center font-mono mb-10">
-            <input
-              type="text"
-              id="userInput"
-              placeholder="Enter your text"
-              value={userInput}
-              onChange={handleUserInput}
-            />
-            <button onClick={fetchOpenAIResponse}>Submit</button>
           </div>
         </div>
 

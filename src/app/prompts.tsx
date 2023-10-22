@@ -27,7 +27,7 @@ export const allPrompts =
     }],
 
     [{
-        gpt: "Describe how the player deals with the dragon, they enjoy their adventuring life for a couple of days before arriving at a bustling city (100 words or less, 2nd person)",
+        gpt: "Describe how after the player deals with the dragon, they enjoy their adventuring life for a couple of days before arriving at a bustling city (100 words or less, 2nd person)",
         user: "Leave the village",
         option: 0
     }],
@@ -48,7 +48,7 @@ export const allPrompts =
         user: "Think about how to get to the Demon King's castle",
         option: 0
     }],
-    
+
     [{
         gpt: "Describe me taming a wild horse outside the city and embarking on an epic journey from the city to the Demon King’s castle on horseback (100 words or less, 2nd person)",
         user: "Tame a steed from the wild to go by horseback",

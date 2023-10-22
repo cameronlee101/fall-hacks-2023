@@ -177,9 +177,7 @@ export default function Home() {
     if (healthStat) {
       if (healthStat.quantity > 1) {
         getOpenAIResponse(allPrompts[stage][selection])
-        if (stage < (allPrompts.length - 1)) {
-          setStage(stage + 1);
-        }
+        setStage(stage + 1);
       }
     }
   };
@@ -226,7 +224,7 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-            {!isLoading && (findPlayerStat("Health")?.quantity ?? 0) > 1 && scenario()}
+            {!isLoading && (findPlayerStat("Health")?.quantity ?? 0) > 1 && !(allPrompts.length == stage) && scenario()}
           </div>
         </div>
 

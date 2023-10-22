@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
-import { initialPrompt } from "./prompts";
-import {dragonPrompts} from './prompts';
+import { allPrompts } from "./prompts";
 import Image from 'next/image';
 
 export enum MessageRole {
@@ -122,14 +121,14 @@ export default function Home() {
     }
   };
 
-  function scenario() {
+  function dragonScenario() {
     return (
       <div>
         {/* First scenario */}
         <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
-          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to soothe the dragon by offering all your gold.</button>
-          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
+          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][0].user}</button>
+          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][1].user}</button>
+          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][2].user}</button>
         </div>
       </div>
     );
@@ -137,7 +136,7 @@ export default function Home() {
 
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
-    getOpenAIResponse(dragonPrompts[selection])
+    getOpenAIResponse(allPrompts[1][selection])
   };
 
   return (
@@ -182,7 +181,10 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-            {scenario()}
+
+            <button onClick={() => getOpenAIResponse(allPrompts[0][0])}>Start Game</button>
+
+            {dragonScenario()}
           </div>
         </div>
 

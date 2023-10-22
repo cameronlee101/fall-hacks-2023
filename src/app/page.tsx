@@ -38,6 +38,7 @@ export default function Home() {
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Typing.');
+  const [stage, setStage] = useState<number>(0)
 
 
   const openai = new OpenAI({
@@ -79,13 +80,19 @@ export default function Home() {
     }
   }
 
-  const getOpenAIResponse = async (userInput: string) => {
+  const getOpenAIResponse = async (userInput: any) => {
+    let inputPrompt = {
+      role: MessageRole.USER,
+      content: userInput.gpt,
+    };
+
     let inputMessage = {
       role: MessageRole.USER,
-      content: userInput,
+      content: userInput.user,
     };
+
     await setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
-    await fetchOpenAIResponse(inputMessage);
+    await fetchOpenAIResponse(inputPrompt);
   }
 
   // Function to fetch OpenAI response
@@ -115,7 +122,7 @@ export default function Home() {
     }
   };
 
-  function dragonScenario() {
+  function scenario() {
     return (
       <div>
         {/* First scenario */}
@@ -175,10 +182,7 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-
-            <button onClick={() => getOpenAIResponse(initialPrompt)}>Start Game</button>
-
-            {dragonScenario()}
+            {scenario()}
           </div>
         </div>
 

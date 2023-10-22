@@ -92,4 +92,11 @@ export const allPrompts =
     }]
 ]
 
-
+export const deathPrompt = 
+[
+    {
+        gpt: "Describe me vivdly dying in battle despite my best efforts (100 words or less, 2nd person)",
+        user: "",
+        option: 0
+    }
+]

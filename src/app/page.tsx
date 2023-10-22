@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
-import { allPrompts } from "./prompts";
+import { allPrompts, deathPrompt } from "./prompts";
 import Image from 'next/image';
 
 export enum MessageRole {
@@ -145,31 +145,32 @@ export default function Home() {
   const dragonScenarioLogic = (selection: number) => {
 
     let healthStat = findPlayerStat("Health");
-    const strengthStat = findPlayerStat("Strength");
+    let strengthStat = findPlayerStat("Strength");
 
-  
-    
     if (allPrompts[stage][selection].health !== undefined) {
       if (healthStat) {
         healthStat.quantity += allPrompts[stage][selection].health as number;
 
         if(healthStat.quantity <= 0){
-          setStage(allPrompts.length)
           // death condition
+          getOpenAIResponse(deathPrompt[0])
         }
       }
     }
 
     if (allPrompts[stage][selection].strength !== undefined) {
       if (strengthStat) {
-        strengthStat.quantity++;
+        strengthStat.quantity += allPrompts[stage][selection].strength as number;
       }
     }
 
-
-    getOpenAIResponse(allPrompts[stage][selection])
-    if (stage < (allPrompts.length - 1)) {
-      setStage(stage + 1);
+    if (healthStat) {
+      if (healthStat.quantity > 1) {
+        getOpenAIResponse(allPrompts[stage][selection])
+        if (stage < (allPrompts.length - 1)) {
+          setStage(stage + 1);
+        }
+      }
     }
   };
 
@@ -215,7 +216,7 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-            {!isLoading && scenario()}
+            {!isLoading && (findPlayerStat("Health")?.quantity ?? 0) > 1 && scenario()}
           </div>
         </div>
 

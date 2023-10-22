@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
-import { initialPrompt } from './prompts';
-import { dragonPrompts } from './prompts';
+import {dragonPrompts} from './prompts';
+import Image from 'next/image';
 
 export enum MessageRole {
   USER = "user",
@@ -160,10 +160,13 @@ export default function Home() {
                     key={index}
                     className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
                   >
-                    <img
-                      src={message.role === 'system' ? '../../public/icons/robot.png' : '../../public/icons/adventurer.png'}
+                    <Image
+                      src={message.role === 'system' ? '/icons/robot.png' : '/icons/adventurer.png'}
                       alt="User or System Image"
-                      style={{ borderRadius: '50%', width: '50px', height: '50px' }}
+                      className="dark:invert"
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: '50%' }}
                     />
                     {message.content}
                   </li>

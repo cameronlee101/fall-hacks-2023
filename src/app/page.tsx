@@ -33,6 +33,7 @@ export default function Home() {
   }
 
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
+  const [promptHistor, setPromptHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
   const [stats, setStats] = useState([new PlayerStat("Health", 3), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
@@ -90,6 +91,7 @@ export default function Home() {
       content: userInput.user,
     };
 
+    await setPromptHistory((prevHistory) => [...prevHistory, inputPrompt])
     await setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
     await fetchOpenAIResponse(inputPrompt);
   }
@@ -101,7 +103,7 @@ export default function Home() {
       // Fetch OpenAI response
       const response = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
-        messages: [userMessage],
+        messages: [...chatHistory, userMessage],
         temperature: 0.8,
         max_tokens: 256,
       });

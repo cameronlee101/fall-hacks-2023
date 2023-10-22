@@ -170,10 +170,10 @@ export default function Home() {
                     <Image
                       src={message.role === 'system' ? '/icons/robot.png' : '/icons/adventurer.png'}
                       alt="User or System Image"
-                      className="dark:invert"
+                      className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
                       width={50}
                       height={50}
-                      style={{ borderRadius: '50%' }}
+                      style={message.role === 'system' ? { borderRadius: '50%' } : { borderRadius: '50%', marginLeft: 750}}
                     />
                     {message.content}
                   </li>

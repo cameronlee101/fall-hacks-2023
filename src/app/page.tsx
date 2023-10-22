@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import OpenAI from "openai";
+import { initialPrompt } from "./prompts";
 import {dragonPrompts} from './prompts';
 import Image from 'next/image';
 
@@ -114,8 +115,21 @@ export default function Home() {
     }
   };
 
+  function dragonScenario() {
+    return (
+      <div>
+        {/* First scenario */}
+        <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
+          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
+          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to soothe the dragon by offering all your gold.</button>
+          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
+        </div>
+      </div>
+    );
+  }
+
   // Function for Scenario 1
-  const dragonScenario = (selection: number) => {
+  const dragonScenarioLogic = (selection: number) => {
     getOpenAIResponse(dragonPrompts[selection])
   };
 
@@ -162,14 +176,9 @@ export default function Home() {
               </ul>
             </div>
 
-            <div>
-              {/* First scenario */}
-              <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-                <button onClick={() => dragonScenario(0)} style={{ backgroundColor: "blue", margin: "20px" }}>Pick up a nearby sword and slay the dragon.</button>
-                <button onClick={() => dragonScenario(1)} style={{ backgroundColor: "blue", margin: "20px" }}>Attempt to sooth the dragon by offering all your gold.</button>
-                <button onClick={() => dragonScenario(2)} style={{ backgroundColor: "blue", margin: "20px" }}>Flee the scene.</button>
-              </div>
-            </div>
+            <button onClick={() => getOpenAIResponse(initialPrompt)}>Start Game</button>
+
+            {dragonScenario()}
           </div>
         </div>
 

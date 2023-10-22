@@ -3,7 +3,9 @@ export const allPrompts =
     [{
         gpt: "Give me a starting narration to my game where the player is a bored office worked looking to turn over a new leaf, then one day based on their wish they are transported to a new world. Their adventure begins in a village under attack by a dragon. Use 2nd person and max 120 words.",
         user: "Start Game",
-        option: 0
+        option: 0,
+        health: 0,
+        strength: 0
     }],
 
     [{
@@ -63,6 +65,30 @@ export const allPrompts =
         gpt: "Describe me embarking on an epic journey from the city to the Demon King’s castle by foot (100 words or less, 2nd person)",
         user: "Go by foot",
         option: 2
+    }],
+
+    [{
+        gpt: "Describe me, after arriving at the Demon King’s castle after a long journey, epically defeating an army of Demon King guards before arriving at the Demon King’s quarters (100 words or less, 2nd person)",
+        user: "Storm the Demon King's castle",
+        option: 0
+    }],
+
+    [{
+        gpt: "Describe me, after defeating all the Demon King’s guards, challenging the Demon King to a sword battle, winning, then becoming the people’s hero (100 words or less, 2nd person)",
+        user: "Fight the Demon King head on, your sword vs. his",
+        option: 0
+    },
+    {
+        gpt: "Describe me, after defeating all the Demon King’s guards, entering the Demon King’s quarters super stealthy and assassinating him, then becoming the people’s hero (100 words or less, 2nd person)",
+        user: "Sneak into the Demon King’s quarters, going for a stealthy assassination",
+        option: 1
+    },
+    {
+        gpt: "Describe me, after defeating all the Demon King’s guards, challenging the Demon King to a dance battle where the winner decides the future of all the lands, but he just kills me instantly and takes over the world (100 words or less, 2nd person)",
+        user: "Challenge the Demon King to a dance battle, the winner determining the future of the lands",
+        option: 2,
+        health: -500,
+        strength: 0
     }]
 ]
 

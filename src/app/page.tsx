@@ -79,13 +79,19 @@ export default function Home() {
     }
   }
 
-  const getOpenAIResponse = async (userInput: string) => {
+  const getOpenAIResponse = async (userInput: any) => {
+    let inputPrompt = {
+      role: MessageRole.USER,
+      content: userInput.gpt,
+    };
+
     let inputMessage = {
       role: MessageRole.USER,
-      content: userInput,
+      content: userInput.user,
     };
+
     await setChatHistory((prevHistory) => [...prevHistory, inputMessage]);
-    await fetchOpenAIResponse(inputMessage);
+    await fetchOpenAIResponse(inputPrompt);
   }
 
   // Function to fetch OpenAI response

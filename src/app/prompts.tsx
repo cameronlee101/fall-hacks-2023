@@ -16,9 +16,9 @@ export const allPrompts =
     },
     {
         gpt: "Describe a vivid scene of me offering gold to a dragon which convinces it to stop terrorizing a village (100 words or less, 2nd person)",
-        user: "Attempt to soothe the dragon by offering all your gold",
+        user: "Attempt to soothe the dragon by offering 4 gold",
         option: 1,
-        Gold: -5
+        Gold: -4
     },
     {
         gpt: "Describe a vivid scene of me narrowly escaping a village being attacked by a dragon with my life (100 words or less, 2nd person)",
@@ -27,7 +27,7 @@ export const allPrompts =
     }],
 
     [{
-        gpt: "Describe how after the player deals with the dragon, they enjoy their adventuring life for a couple of days before arriving at a bustling city (100 words or less, 2nd person)",
+        gpt: "Describe how after their encounter with the dragon, the player enjoys their adventuring life for a couple of days before arriving at a bustling city (100 words or less, 2nd person)",
         user: "Leave the village",
         option: 0
     }],

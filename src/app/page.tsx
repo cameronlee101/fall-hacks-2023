@@ -126,9 +126,9 @@ export default function Home() {
       <div>
         {/* First scenario */}
         <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][0].user</button>
-          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][1].user</button>
-          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][2].user</button>
+          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][0].user}</button>
+          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][1].user}</button>
+          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>{allPrompts[1][2].user}</button>
         </div>
       </div>
     );

@@ -31,7 +31,7 @@ export default function Home() {
       this.quantity = quantity
     }
   }
-  
+
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
@@ -121,14 +121,19 @@ export default function Home() {
     }
   };
 
-  function dragonScenario() {
+  function scenario() {
     return (
-      <div>
-        {/* First scenario */}
-        <div style={{ display: "flex", justifyContent: "space-between", maxWidth: "600px", margin: "0 auto" }}>
-          <button onClick={() => dragonScenarioLogic(0)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][0].user</button>
-          <button onClick={() => dragonScenarioLogic(1)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][1].user</button>
-          <button onClick={() => dragonScenarioLogic(2)} style={{ backgroundColor: "blue", margin: "20px" }}>allPrompts[1][2].user</button>
+      <div style={{ display: "flex", justifyContent: "center", maxWidth: "600px", margin: "0 auto" }}>
+        <div>
+          {allPrompts[stage].map((prompt, index) => (
+            <button
+              key={index}
+              onClick={() => dragonScenarioLogic(prompt.option)}
+              style={{ backgroundColor: "lightgray", margin: "5px" }}
+            >
+              {prompt.user}
+            </button>
+          ))}
         </div>
       </div>
     );
@@ -136,7 +141,10 @@ export default function Home() {
 
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
-    getOpenAIResponse(allPrompts[1][selection])
+    getOpenAIResponse(allPrompts[stage][selection])
+    if (stage < (allPrompts.length - 1)) {
+      setStage(stage + 1);
+    }
   };
 
   return (
@@ -160,7 +168,7 @@ export default function Home() {
         <div className="w-3/5 flex flex-col mr-2 ml-2 p-2">
           <div className="justify-center">
             <h2>Chat History:</h2>
-            <div className="chat-history-container overflow-auto" style={{ height: "75vh" }}>
+            <div className="chat-history-container overflow-auto" style={{ height: "65vh" }}>
               <ul>
                 {chatHistory.map((message, index) => (
                   <li
@@ -173,7 +181,7 @@ export default function Home() {
                       className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
                       width={50}
                       height={50}
-                      style={message.role === 'system' ? { borderRadius: '50%' } : { borderRadius: '50%', marginLeft: 750}}
+                      style={message.role === 'system' ? { borderRadius: '50%' } : { borderRadius: '50%', marginLeft: 750 }}
                     />
                     {message.content}
                   </li>
@@ -181,10 +189,7 @@ export default function Home() {
                 {isLoading && loadingText}
               </ul>
             </div>
-
-            <button onClick={() => getOpenAIResponse(allPrompts[0][0])}>Start Game</button>
-
-            {dragonScenario()}
+            {!isLoading && scenario()}
           </div>
         </div>
 

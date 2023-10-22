@@ -5,10 +5,13 @@ export const allPrompts =
         user: "Start Game",
         option: 0
     }],
+    
     [{
         gpt: "Describe a vivid scene of me slaying a dragon with a sword to stop terrorizing a village (100 words or less)",
         user: "Pick up a nearby sword and slay the dragon",
-        option: 0
+        option: 0,
+        health: -1,
+        strength: 1,
     },
     {
         gpt: "Describe a vivid scene of me offering gold to a dragon which convinces it to stop terrorizing a village (100 words or less)",

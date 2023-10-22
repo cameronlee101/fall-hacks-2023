@@ -34,7 +34,7 @@ export default function Home() {
 
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [inventory, setInventory] = useState([new InventoryItem("Gold", 5)]); // Initial inventory array
-  const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
+  const [stats, setStats] = useState([new PlayerStat("Health", 3), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Typing.');
   const [stage, setStage] = useState<number>(0)
@@ -141,6 +141,21 @@ export default function Home() {
 
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
+    if (allPrompts[stage][selection].health !== undefined) {
+      const healthStat = findPlayerStat("Health");
+      if (healthStat) {
+        healthStat.quantity--;
+      }
+    }
+
+    if (allPrompts[stage][selection].strength !== undefined) {
+      const strengthStat = findPlayerStat("Strength");
+      if (strengthStat) {
+        strengthStat.quantity++;
+      }
+    }
+
+
     getOpenAIResponse(allPrompts[stage][selection])
     if (stage < (allPrompts.length - 1)) {
       setStage(stage + 1);

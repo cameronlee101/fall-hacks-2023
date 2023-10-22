@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import OpenAI from "openai";
 import { allPrompts } from "./prompts";
 import Image from 'next/image';
@@ -31,6 +31,9 @@ export default function Home() {
       this.quantity = quantity
     }
   }
+
+  const chatContainerRef = useRef(null);
+
 
   const [chatHistory, setChatHistory] = useState<{ role: MessageRole; content: string }[]>([]);
   const [promptHistor, setPromptHistory] = useState<{ role: MessageRole; content: string }[]>([]);
@@ -141,19 +144,26 @@ export default function Home() {
     );
   }
 
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current as HTMLDivElement | null;
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [chatHistory]);
+
   // Function for Scenario 1
   const dragonScenarioLogic = (selection: number) => {
 
     const healthStat = findPlayerStat("Health");
     const strengthStat = findPlayerStat("Strength");
 
-  
-    
+
+
     if (allPrompts[stage][selection].health !== undefined) {
       if (healthStat) {
         healthStat.quantity--;
 
-        if(healthStat.quantity == 0){
+        if (healthStat.quantity == 0) {
           setStage(allPrompts.length)
           // death condition
         }
@@ -191,10 +201,10 @@ export default function Home() {
           </tbody>
         </table>
 
-        <div className="w-3/5 flex flex-col mr-2 ml-2 p-2">
+        <div className="w-3/5 flex flex-col mr-2 ml-2 ">
           <div className="justify-center">
             <h2>Chat History:</h2>
-            <div className="chat-history-container overflow-auto" style={{ height: "65vh" }}>
+            <div className="chat-history-container custom-scrollbar p-5" style={{ height: "65vh" }} ref={chatContainerRef}>
               <ul>
                 {chatHistory.map((message, index) => (
                   <li
@@ -207,7 +217,7 @@ export default function Home() {
                       className={`chat-message ${message.role === 'system' ? 'system-message' : 'user-message'}`}
                       width={50}
                       height={50}
-                      style={message.role === 'system' ? { borderRadius: '50%' } : { borderRadius: '50%', marginLeft: 750 }}
+                      style={message.role === 'system' ? { borderRadius: '50%' } : { borderRadius: '50%', marginLeft: 730 }}
                     />
                     {message.content}
                   </li>

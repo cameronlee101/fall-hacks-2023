@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Fall Hacks 2023',
-  description: 'SFU fall hackathon web application',
+  title: 'New Leaf In A New World',
+  description: 'SFU Fall Hacks AI Based Chat Adventure Game',
 }
 
 export default function RootLayout({

@@ -187,7 +187,7 @@ export default function Home() {
   return (
     <main className="flex flex-col h-screen">
       <div className="font-mono mb-12">
-        <h1 className="m-2 object-contain text-2xl flex justify-center">Fall Hacks 2023 Text-based Adventure Game</h1>
+        <h1 className="m-2 object-contain text-2xl flex justify-center">New Leaf In A New World</h1>
       </div>
 
       <div className="font-mono flex flex-row flex-1">

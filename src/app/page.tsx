@@ -37,6 +37,7 @@ export default function Home() {
   const [stats, setStats] = useState([new PlayerStat("Health", 5), new PlayerStat("Strength", 3)]); // Initial stats array
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('Typing.');
+  const [stage, setStage] = useState<number>(0)
 
 
   const openai = new OpenAI({
@@ -120,7 +121,7 @@ export default function Home() {
     }
   };
 
-  function dragonScenario() {
+  function scenario() {
     return (
       <div>
         {/* First scenario */}

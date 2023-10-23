@@ -23,6 +23,8 @@ npm run dev
 
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+Video Demo: https://youtu.be/fcw0liCe61Q
+
 ## Participants
 
 Cameron Lee, cal26@sfu.ca

@@ -2,6 +2,8 @@
 
 This is a text-based adventure where you are a regular 9-5 office worker who wants to experience something new in life and turn over a new leaf. Suddenly, you are transported into a fantasy world. With the power of AI generated narration, will you be able to pick the right options and have your adventure that you've always wanted?
 
+![](https://github.com/cameronlee101/fall-hacks-2023/blob/main/public/FallHacks2023Gif.gif)
+
 ## File Structure
 
 Source code is located in fall-hacks-2023/src/app
